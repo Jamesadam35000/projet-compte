@@ -10,9 +10,14 @@ class Compte:
         self.__numero_compte = numeroCompte
         self.nom_proprietaire = nomProprietaire
 
-    def retrait(self):
-    def versement(self):
+    def retrait(self, montant_retrait):
+        self._solde -= montant_retrait
+
+    def versement(self, montant_versement):
+        self._solde += montant_versement
+
     def afficherSolde(self):
+        print(self._solde)
 
 class CompteCourant(Compte):
     def __init__(self, autorisationDecouvert:float, pourcentageAgios:float):
