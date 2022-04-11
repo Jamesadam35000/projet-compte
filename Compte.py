@@ -1,5 +1,4 @@
 class Compte:
-
     """ Implementation de la classe compte, elle
     nous permettra de faire des retraits, versements
      et afficher le solde pour un comtpe donné """
@@ -10,7 +9,6 @@ class Compte:
         self.nom_proprietaire = nom_proprietaire
 
     def retrait(self, montant_retrait: int):
-
         """Méthode qui permet de retirer le montant que
         l'utilisateur souhaite pour un compte donné"""
 
@@ -18,15 +16,13 @@ class Compte:
         return self._solde
 
     def versement(self, montant_versement):
-
         """Méthode qui permet d'ajouter le montant que
         l'utilisateur souhaite pour un compte donné"""
 
-        self._solde += montant_versement
+        self._solde += abs(montant_versement)
         return self._solde
 
-    def __repr__(self):
-
+    def afficherSolde(self):
         """Affichage du solde pour un compte"""
 
-        return self._solde
+        return print(self._solde)
