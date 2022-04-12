@@ -6,8 +6,10 @@ class CompteEpargne(Compte):
         donner un pourcentage d'interet et d'appliquer ces interets
         à ce compte"""
 
-    def __init__(self, pourcentageInteret:float):
-        self.pourcentage_interet = pourcentageInteret
+    def __init__(self, pourcentage_interet:float):
+        self.pourcentage_interet = pourcentage_interet
 
     def appliquerInteret(self):
-        """ """
+        """"""
+        self._solde *= self.pourcentage_interet
+        return self._solde
