@@ -12,3 +12,5 @@ class CompteCourant(Compte):
 
     def appliquerAgios(self):
         """"""
+        self._solde *= (1-self.pourcentage_agios)
+        return self._solde
