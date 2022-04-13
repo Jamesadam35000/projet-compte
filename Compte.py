@@ -1,6 +1,6 @@
 from abc import ABC
 
-""""""
+""" Création de mon module Compte"""
 
 class Compte(ABC):
     """ Implementation de la classe compte, elle
@@ -17,10 +17,8 @@ class Compte(ABC):
         l'utilisateur souhaite pour un compte donné. Ici,
         il ne peut pas utiliser le signe - avec l'interface"""
 
-        if montant_retrait < 0:
-            raise Exception("Vous avez rentré une valeur incorect:{m_t}".format(m_t=montant_retrait))
         if self._solde >= montant_retrait:
-            self._solde -= montant_retrait
+            self._solde += montant_retrait
         else:
             raise Exception("Opération invalide, vous n'avez pas assez d'argent")
 
@@ -28,14 +26,11 @@ class Compte(ABC):
         """Méthode qui permet d'ajouter le montant que
         l'utilisateur souhaite pour un compte donné. Ici,
         il peut utiliser un signe "-" avec l'interface"""
-
-        if montant_versement < 0:
-            raise Exception("Vous avez rentré une valeur incorrect:{m_v}".format(m_v=montant_versement))
         self._solde += montant_versement
 
     def afficherSolde(self):
         """Affichage du solde pour un compte"""
-        return print(str(round(self._solde,2))+"€")
+        return str(round(self._solde,2))+"€"
 
 
 class CompteCourant(Compte):
@@ -55,13 +50,11 @@ class CompteCourant(Compte):
             self._solde *= (1 + self.pourcentage_agios)
 
     def retrait(self, montant_retrait: float = 0):
-        if (self._solde - montant_retrait) > -1 * self.autorisation_decouvert:
-            self._solde -= montant_retrait
+        if (self._solde + montant_retrait) > -1 * self.autorisation_decouvert:
+            self._solde += montant_retrait
             self.appliquerAgios()
-        elif (self._solde - montant_retrait) < -1 * self.autorisation_decouvert:
+        elif (self._solde + montant_retrait) < -1 * self.autorisation_decouvert:
             raise Exception ("Opération invalide vous allez dépasser le seuil de découvert autorisé ")
-        else:
-            Compte.retrait(self, montant_retrait=0)
 
     def versement(self, montant_versement=0):
         Compte.versement(self, montant_versement)
@@ -86,6 +79,8 @@ class CompteEpargne(Compte):
             self._solde *= (1 + self.pourcentage_interet)
 
     def retrait(self, montant_retrait: float = 0):
+        if self._solde + montant_retrait < 20:
+            raise Exception ("Impossible d'aller en dessous de 20€ pour un compte epargne")
         Compte.retrait(self, montant_retrait)
         self.appliquerInteret()
 
