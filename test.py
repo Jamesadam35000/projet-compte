@@ -22,15 +22,17 @@ from Compte import CompteEpargne
 #
 # Test de ma classe CompteCourant
 
-CompteCourant = CompteCourant(100,0.1,100,14514521,"James")
-CompteCourant.retrait(110)
+CompteCourant = CompteCourant(200,0.1,-100,14514521,"James")
+CompteCourant.retrait()
 CompteCourant.afficherSolde()
 
 # # Test de ma classe CompteEpargne
 #
-CompteEpargne = CompteEpargne(0.1,1000,14515161,"James")
-CompteEpargne.afficherSolde()
-CompteEpargne.versement(100)
-CompteEpargne.appliquerInteret()
-CompteEpargne.afficherSolde()
+# CompteEpargne = CompteEpargne(0.1,1000,14515161,"James")
+# CompteEpargne.afficherSolde()
+# CompteEpargne.versement(100)
+# CompteEpargne.afficherSolde()
 
+montant = float(input())
+
+print(type(montant))
