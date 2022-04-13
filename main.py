@@ -6,11 +6,6 @@ import random
 COMPTE_COURANT = "1"
 COMPTE_EPARGNE = "2"
 
-OPERATION = "1"
-SOLDES = "2"
-QUITTER = "3"
-
-
 def ui_saisie_montant():
     """
     Cette fonction permet à l'utilisateur de choisir le montant de
@@ -30,8 +25,9 @@ def ui_saisie_montant():
     print("Quel montant ?")
     try:
         montant = float(input())
-    except ValueError as ve:
-        print("Vous vous êtes trompé, réecrivez un nombre décimale valable:")
+    except ValueError:
+        print("Vous vous êtes trompé, réecrivez un nombre décimale valable!")
+        montant = 0
     compte.versement(montant) if montant > 0 else compte.retrait(montant)
     print("Votre solde est maintenant de : " + compte.afficherSolde()+"\n")
 
@@ -63,19 +59,19 @@ def ui():
 
         choix = input()
 
-        if choix == OPERATION:
-            ui_saisie_montant()
-        elif choix == SOLDES:
-            ui_affichage_soldes()
-        elif choix == QUITTER:
-            variable_sortie = False
-        else:
-            print("Saisie invalide, veuillez recommencer s'il vous plait !")
-
+        match choix:
+            case "1":
+                ui_saisie_montant()
+            case "2":
+                ui_affichage_soldes()
+            case "3":
+                variable_sortie=False
+            case _:
+                print("Saisie invalide, veuillez recommencer s'il vous plait !")
 
 user = 'Toto'
 autorisation_decouvert = random.randint(0, 1000)
-solde_compte_courant = random.randint(-autorisation_decouvert, 10000)
+solde_compte_courant = random.randint(-autorisation_decouvert, 10000) #on met autorisation decouvert en valeur minimale pour ne pas se retrouver en dessous du seuil autorisé
 solde_compte_epargne = random.randint(20, 10000)
 num_compte_courant = random.randint(1000000000, 9999999999)
 num_compte_epargne = random.randint(1000000000, 9999999999)

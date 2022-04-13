@@ -81,8 +81,7 @@ class CompteEpargne(Compte):
         self.pourcentage_interet = pourcentage_interet
 
     def appliquerInteret(self):
-        """Ici, on implémente la formule d'interet pour un compte epargne """
-
+        """Ici, on implémente la formule d'interet pour un compte epargne"""
         self._solde *= (1 + self.pourcentage_interet)
 
     def retrait(self, montant_retrait: float = 0):
@@ -91,7 +90,7 @@ class CompteEpargne(Compte):
 
         if self._solde + montant_retrait < 20:
             raise Exception("Impossible d'aller en dessous de 20€ pour un compte epargne")
-        Compte.retrait(self, montant_retrait)
+        Compte.retrait(self,montant_retrait)
         self.appliquerInteret()
 
     def versement(self, montant_versement: float = 0):
