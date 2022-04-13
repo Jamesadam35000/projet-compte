@@ -16,20 +16,24 @@ def ui_saisie_montant():
     Cette fonction permet à l'utilisateur de choisir le montant de
     son virement pour un de ses comptes qu'il choisit auparevent
     """
+    global montant
     choix_compte = None
     while choix_compte not in [COMPTE_COURANT, COMPTE_EPARGNE]:
         print(""" Sur quel compte ? 
         
-                 1 - Compte Courant
-                 2 - Compte Epargne
+                1 - Compte Courant
+                2 - Compte Epargne
                  """)
         choix_compte = input()
     compte = compteC if choix_compte == COMPTE_COURANT else compteE
     print("Votre solde est de : " + compte.afficherSolde())
     print("Quel montant ?")
-    montant = float(input())
+    try:
+        montant = float(input())
+    except ValueError as ve:
+        print("Vous vous êtes trompé, réecrivez un nombre décimale valable:")
     compte.versement(montant) if montant > 0 else compte.retrait(montant)
-    print("Votre solde est maintenant de : " + compte.afficherSolde())
+    print("Votre solde est maintenant de : " + compte.afficherSolde()+"\n")
 
 
 def ui_affichage_soldes():
@@ -46,7 +50,7 @@ def ui_affichage_soldes():
 def ui():
     """
     Cette fonction permet à l'utilisateur de chosir une des 3 options réalisable :
-    opération, affichage des soldes ou quitter l'application
+    opération, affichage des soldes ou quitter l'application.
     """
 
     variable_sortie = True
@@ -70,13 +74,13 @@ def ui():
 
 
 user = 'Toto'
-solde_compte_courant = random.randint(-500, 10000)
+autorisation_decouvert = random.randint(0, 1000)
+solde_compte_courant = random.randint(-autorisation_decouvert, 10000)
 solde_compte_epargne = random.randint(20, 10000)
 num_compte_courant = random.randint(1000000000, 9999999999)
 num_compte_epargne = random.randint(1000000000, 9999999999)
-autorisation_decouvert = random.randint(0, 1000)
-interet = 0.1
-agios = 0.1
+interet = 0.1 #round(random(),2)
+agios = 0.1 #round(random(),2)
 
 compteE = CompteEpargne(interet, solde_compte_epargne, num_compte_epargne, user)
 compteC = CompteCourant(autorisation_decouvert, agios, solde_compte_courant, num_compte_courant, user)
