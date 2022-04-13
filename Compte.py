@@ -15,7 +15,7 @@ class Compte(ABC):
     def retrait(self, montant_retrait : float=0):
         """Méthode qui permet de retirer le montant que
         l'utilisateur souhaite pour un compte donné. Ici,
-        il ne peut pas utiliser le signe - avec l'interface"""
+        il peut utiliser le signe - avec l'interface"""
 
         if self._solde >= montant_retrait:
             self._solde += montant_retrait
